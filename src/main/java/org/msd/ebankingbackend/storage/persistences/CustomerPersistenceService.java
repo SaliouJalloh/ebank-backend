@@ -39,10 +39,10 @@ public class CustomerPersistenceService implements ICustomerPersistenceService {
     }
 
     @Override
-    public Customer saveCustomer(Customer customer) {
+    public void saveCustomer(Customer customer) {
         CustomerEntity customerEntity = customerPersistenceMapper.toEntity(customer);
         CustomerEntity savedCustomer = customerRepository.save(customerEntity);
-        return customerPersistenceMapper.toModel(savedCustomer);
+        customerPersistenceMapper.toModel(savedCustomer);
     }
 
     @Override
@@ -61,10 +61,11 @@ public class CustomerPersistenceService implements ICustomerPersistenceService {
 
     @Override
     public Customer findCustomerById(Long id) {
-        CustomerEntity userEntity = customerRepository.findById(id).orElseThrow(() -> {
-            log.error("Customer with id {} not found", id);
-            return new EntityNotFoundException("Not user found with id: " + id);
-        });
+        CustomerEntity userEntity = customerRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("Customer with id {} not found", id);
+                    return new EntityNotFoundException("Not user found with id: " + id);
+                });
         return customerPersistenceMapper.toModel(userEntity);
     }
 
@@ -75,8 +76,16 @@ public class CustomerPersistenceService implements ICustomerPersistenceService {
     }
 
     @Override
-    public Customer updateCustomer(Customer customer) {
-        return null;
+    public Customer updateCustomer(Customer customer, Long id) {
+        CustomerEntity updateCustomer = customerRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("Customers with id {} not found", id);
+                    return new EntityNotFoundException("Not user found with id: " + id);
+                });
+        updateCustomer.setFirstName(customer.getFirstName());
+        updateCustomer.setLastName(customer.getLastName());
+        updateCustomer.setEmail(customer.getEmail());
+        return customerPersistenceMapper.toModel(updateCustomer);
     }
 
     @Override

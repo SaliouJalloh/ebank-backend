@@ -46,4 +46,14 @@ public class CustomerService implements ICustomerService {
     public Customer findCustomerById(Long id) {
         return customerPersistenceService.findCustomerById(id);
     }
+
+    @Override
+    public Customer update(Customer customer, Long id) {
+        return customerPersistenceService.updateCustomer(customer, id);
+    }
+
+    @Override
+    public void delete(Long id) {
+        customerPersistenceService.deleteCustomerById(id);
+    }
 }

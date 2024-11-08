@@ -11,7 +11,7 @@ public interface ICustomerPersistenceService {
 
     List<Customer> findAllCustomers();
 
-    Customer updateCustomer(Customer customer);
+    Customer updateCustomer(Customer customer, Long id);
 
     void deleteCustomerById(Long id);
 
@@ -21,7 +21,7 @@ public interface ICustomerPersistenceService {
 
     Customer saveCustomerWithRole(RegisterRequest request);
 
-    Customer saveCustomer(Customer customer);
+    void saveCustomer(Customer customer);
 
     Customer findCustomerByEmail(String email);
 

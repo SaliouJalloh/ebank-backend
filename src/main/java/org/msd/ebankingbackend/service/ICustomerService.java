@@ -9,4 +9,8 @@ public interface ICustomerService {
     Customer findCustomerByEmail(String email);
 
     Customer findCustomerById(Long id);
+
+    Customer update(Customer customer, Long id);
+
+    void delete(Long id);
 }

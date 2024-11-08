@@ -1,7 +1,7 @@
 package org.msd.ebankingbackend.controller;
 
 
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.msd.ebankingbackend.controller.dtos.AuthenticationResponseDto;
 import org.msd.ebankingbackend.controller.mappers.IControllerMapper;
@@ -11,38 +11,38 @@ import org.msd.ebankingbackend.service.payload.request.AuthenticationRequest;
 import org.msd.ebankingbackend.service.payload.request.RegisterRequest;
 import org.msd.ebankingbackend.service.payload.response.AuthenticationResponse;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/v1/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements IAuthController {
 
     private final IControllerMapper controllerMapper;
     private final IAuthenticationService authenticationService;
     private final JwtService jwtService;
 
-    @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public AuthenticationResponseDto register(@Valid @RequestBody RegisterRequest request) {
-        AuthenticationResponse response = authenticationService.register(request);
-        ResponseCookie jwtCookie = jwtService.generateJwtCookie(response.getAccessToken());
-        ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(response);
-        return controllerMapper.toAuthenticationDto(response);
+    public AuthenticationResponseDto register(RegisterRequest request, HttpServletResponse response) {
+
+        AuthenticationResponse authResponse = authenticationService.register(request);
+        ResponseCookie jwtCookie = jwtService.generateJwtCookie(authResponse.getAccessToken());
+
+        // Ajoute le cookie à la réponse
+        response.addHeader(HttpHeaders.SET_COOKIE, jwtCookie.toString());
+
+        // Converti et retourne le DTO
+        return controllerMapper.toAuthenticationDto(authResponse);
     }
 
-    @PostMapping("/authenticate")
-    public AuthenticationResponseDto authenticate(@Valid @RequestBody AuthenticationRequest request) {
-        AuthenticationResponse response = authenticationService.authenticate(request);
-        ResponseCookie jwtCookie = jwtService.generateJwtCookie(response.getAccessToken());
-        ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(response);
-        return controllerMapper.toAuthenticationDto(response);
+    public AuthenticationResponseDto authenticate(AuthenticationRequest request, HttpServletResponse response) {
+
+        AuthenticationResponse authResponse = authenticationService.authenticate(request);
+
+        ResponseCookie jwtCookie = jwtService.generateJwtCookie(authResponse.getAccessToken());
+        response.addHeader(HttpHeaders.SET_COOKIE, jwtCookie.toString());
+
+        return controllerMapper.toAuthenticationDto(authResponse);
     }
 }

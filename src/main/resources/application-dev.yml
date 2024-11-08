@@ -14,6 +14,10 @@ spring:
       enabled: true
       max-file-size: 1000MB
       max-request-size: 1000MB
+      file-size-threshold: 2048KB #2 Mo
+file:
+  upload-dir: ./uploads
+
 server:
   port: ${SERVER_PORT:8085}
   error:
@@ -42,3 +46,4 @@ cors:
                          Access-Control-Allow-Origin, Access-Control-Allow-Origin, Access-Control-Allow-Credentials"
   allow-credentials: true
   max-age: 3600
+
