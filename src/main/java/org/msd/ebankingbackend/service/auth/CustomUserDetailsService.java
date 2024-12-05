@@ -20,6 +20,5 @@ public class CustomUserDetailsService implements UserDetailsService {
     public Customer loadUserByUsername(String username) throws UsernameNotFoundException {
         // Nous récupérons l'utilisateur par son nom d'utilisateur
         return customerPersistenceService.findCustomerByEmail(username);
-
     }
 }

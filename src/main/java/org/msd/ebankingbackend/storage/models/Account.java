@@ -32,7 +32,6 @@ public class Account extends AbstractModel {
 
     private String currency;
 
-
     private Customer customer;
 
     private List<Operation> operations;

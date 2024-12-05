@@ -1,5 +1,6 @@
 package org.msd.ebankingbackend.storage.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +37,7 @@ public class CustomerEntity extends AbstractEntity {
     private AddressEntity address;
 
     @OneToMany(mappedBy = "customer")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<AccountEntity> accounts;
 
     @OneToMany(mappedBy = "customer")

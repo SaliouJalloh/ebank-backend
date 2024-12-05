@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public abstract class AbstractModel {
+public class AbstractModel {
 
     private Long id;
 

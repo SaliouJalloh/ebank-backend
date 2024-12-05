@@ -12,4 +12,7 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
     Optional<CustomerEntity> findByEmail(String email);
 
     boolean existsByEmail(String email);
+
+  /*  @Query("SELECT c FROM customer c WHERE c.name LIKE :kw")
+    List<CustomerEntity> searchCustomer(@Param("kw") String keyword);*/
 }

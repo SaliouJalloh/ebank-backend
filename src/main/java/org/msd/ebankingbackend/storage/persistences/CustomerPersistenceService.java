@@ -39,17 +39,17 @@ public class CustomerPersistenceService implements ICustomerPersistenceService {
     }
 
     @Override
-    public void saveCustomer(Customer customer) {
+    public Customer saveCustomer(Customer customer) {
         CustomerEntity customerEntity = customerPersistenceMapper.toEntity(customer);
         CustomerEntity savedCustomer = customerRepository.save(customerEntity);
-        customerPersistenceMapper.toModel(savedCustomer);
+        return customerPersistenceMapper.toModel(savedCustomer);
     }
 
     @Override
     public Customer findCustomerByEmail(String email) {
         CustomerEntity customerEntity = customerRepository.findByEmail(email).orElseThrow(() -> {
             log.error("Customer with email {} not found", email);
-            return new EntityNotFoundException("Not user found with email: " + email);
+            return new EntityNotFoundException("Not customer found with email: " + email);
         });
         return customerPersistenceMapper.toModel(customerEntity);
     }
@@ -59,12 +59,20 @@ public class CustomerPersistenceService implements ICustomerPersistenceService {
         return customerRepository.existsByEmail(email);
     }
 
+/*
+    @Override
+    public List<Customer> searchCustomer(String keyword) {
+        List<CustomerEntity> customerEntities = customerRepository.searchCustomer(keyword);
+        return customerEntities.stream().map(customerPersistenceMapper::toModel).toList();
+    }
+*/
+
     @Override
     public Customer findCustomerById(Long id) {
         CustomerEntity userEntity = customerRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("Customer with id {} not found", id);
-                    return new EntityNotFoundException("Not user found with id: " + id);
+                    return new EntityNotFoundException("Not customer found with id: " + id);
                 });
         return customerPersistenceMapper.toModel(userEntity);
     }
@@ -77,37 +85,24 @@ public class CustomerPersistenceService implements ICustomerPersistenceService {
 
     @Override
     public Customer updateCustomer(Customer customer, Long id) {
-        CustomerEntity updateCustomer = customerRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.error("Customers with id {} not found", id);
-                    return new EntityNotFoundException("Not user found with id: " + id);
-                });
+        CustomerEntity updateCustomer = customerRepository.findById(id).orElseThrow(() -> {
+            log.error("Customer with id {} not updated, because it was not found.", id);
+            return new EntityNotFoundException("Not customer found with id: " + id);
+        });
         updateCustomer.setFirstName(customer.getFirstName());
         updateCustomer.setLastName(customer.getLastName());
         updateCustomer.setEmail(customer.getEmail());
+        customerRepository.save(updateCustomer);
         return customerPersistenceMapper.toModel(updateCustomer);
     }
 
     @Override
     public void deleteCustomerById(Long id) {
-        CustomerEntity customer = customerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+        CustomerEntity customer = customerRepository.findById(id).orElseThrow(() -> {
+            log.error("Customer with id {} not deleted, because it was not found.", id);
+            return new EntityNotFoundException("Customer not found with id: " + id);
+        });
         customerRepository.deleteById(customer.getId());
     }
 
-    @Override
-    public Long validateAccount(Long id) {
-        CustomerEntity customer = customerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
-        if (customer.getAccounts().stream().findFirst().isEmpty()) {
-            // create bank account
-
-        }
-        return 0L;
-    }
-
-    @Override
-    public Long invalidateAccount(Long id) {
-        return 0L;
-    }
 }

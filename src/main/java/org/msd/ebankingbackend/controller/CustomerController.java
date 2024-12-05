@@ -24,13 +24,13 @@ public class CustomerController {
         return controllerMapper.toCustomerDto(savedCustomer);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}/update")
     public CustomerDto getCustomerById(@RequestBody Customer customer, Long id) {
         Customer updatedCustomer = customerService.update(customer, id);
         return controllerMapper.toCustomerDto(updatedCustomer);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}/delete")
     public void deleteCustomer(@PathVariable Long id) {
         customerService.delete(id);
     }

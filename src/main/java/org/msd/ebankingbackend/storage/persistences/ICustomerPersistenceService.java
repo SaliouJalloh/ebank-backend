@@ -15,15 +15,13 @@ public interface ICustomerPersistenceService {
 
     void deleteCustomerById(Long id);
 
-    Long validateAccount(Long id);
-
-    Long invalidateAccount(Long id);
-
     Customer saveCustomerWithRole(RegisterRequest request);
 
-    void saveCustomer(Customer customer);
+    Customer saveCustomer(Customer customer);
 
     Customer findCustomerByEmail(String email);
 
     boolean existsCustomerByEmail(String email);
+
+//    List<Customer> searchCustomer(String keyword);
 }
