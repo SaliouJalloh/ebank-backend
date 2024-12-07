@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public enum RoleName {
 
-    ADMIN("ADMIN", "User with administrative privileges and full access to the system"),
-    USER("PASSENGER", "User who provides services to bank");
+    ROLE_ADMIN("ADMIN", "User with administrative privileges and full access to the system"),
+    ROLE_USER("USER", "User who provides services to bank");
 
     private final String name;
 

@@ -7,7 +7,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
 @ActiveProfiles("test")
-class CustomerRepositoryTestIT {
+class CustomerRepositoryTest {
 
     @BeforeEach
     void cleanData() {

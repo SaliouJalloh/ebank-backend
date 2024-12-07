@@ -6,17 +6,15 @@ import org.msd.ebankingbackend.storage.repositories.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import static java.util.Arrays.asList;
-import static org.msd.ebankingbackend.storage.enums.RoleName.ADMIN;
-import static org.msd.ebankingbackend.storage.enums.RoleName.USER;
+import static org.msd.ebankingbackend.storage.enums.RoleName.ROLE_ADMIN;
+import static org.msd.ebankingbackend.storage.enums.RoleName.ROLE_USER;
 
 @SpringBootApplication
 @EnableJpaAuditing
 @RequiredArgsConstructor
-//@EnableConfigurationProperties({FileStorageProperties.class})
 public class EbankingBackendApplication {
 
     private final RoleRepository roleRepository;
@@ -25,14 +23,14 @@ public class EbankingBackendApplication {
         SpringApplication.run(EbankingBackendApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     public CommandLineRunner run() {
         return args -> {
             RoleEntity roleUser = RoleEntity.builder()
-                    .name(USER)
+                    .name(ROLE_USER)
                     .build();
             RoleEntity roleAdmin = RoleEntity.builder()
-                    .name(ADMIN)
+                    .name(ROLE_ADMIN)
                     .build();
             roleRepository.saveAll(asList(roleUser, roleAdmin));
         };

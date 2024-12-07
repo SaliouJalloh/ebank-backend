@@ -9,6 +9,8 @@ import org.msd.ebankingbackend.storage.models.Customer;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/customers")
@@ -24,8 +26,19 @@ public class CustomerController {
         return controllerMapper.toCustomerDto(savedCustomer);
     }
 
+    @GetMapping
+    public List<CustomerDto> getCustomers() {
+        List<Customer> allCustomers = customerService.findAllCustomers();
+        return allCustomers.stream().map(controllerMapper::toCustomerDto).toList();
+    }
+
+    @GetMapping("/{id}")
+    public CustomerDto getCustomer(@PathVariable(name = "id") Long customerId) {
+        return controllerMapper.toCustomerDto(customerService.findCustomerById(customerId));
+    }
+
     @PutMapping("/{id}/update")
-    public CustomerDto getCustomerById(@RequestBody Customer customer, Long id) {
+    public CustomerDto updateCustomer(@RequestBody Customer customer, Long id) {
         Customer updatedCustomer = customerService.update(customer, id);
         return controllerMapper.toCustomerDto(updatedCustomer);
     }

@@ -1,4 +1,4 @@
-package org.msd.ebankingbackend.validator;
+package org.msd.ebankingbackend.service.validator;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;

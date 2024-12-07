@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static org.msd.ebankingbackend.storage.enums.RoleName.USER;
+import static org.msd.ebankingbackend.storage.enums.RoleName.ROLE_USER;
 
 
 @Service
@@ -28,9 +28,9 @@ public class CustomerPersistenceService implements ICustomerPersistenceService {
 
     @Override
     public Customer saveCustomerWithRole(RegisterRequest request) {
-        RoleEntity role = roleRepository.findByName(USER).orElseThrow(() -> {
-            log.error("Role with name {} not found", USER);
-            return new EntityNotFoundException("Not role found with name: " + USER);
+        RoleEntity role = roleRepository.findByName(ROLE_USER).orElseThrow(() -> {
+            log.error("Role with name {} not found", ROLE_USER);
+            return new EntityNotFoundException("Not role found with name: " + ROLE_USER);
         });
         CustomerEntity customerEntity = customerPersistenceMapper.toEntity(request);
         customerEntity.setRole(role);

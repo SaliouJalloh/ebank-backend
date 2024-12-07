@@ -15,8 +15,7 @@ spring:
     url: jdbc:h2:mem:test;INIT=create domain if not exists jsons as text;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     initialize: true
-  liquibase:
-    default-schema: public
+
   # Hibernate Configuration for H2
   sql:
     init:
