@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - develop
+      - refonte
 
 jobs:
   build:
@@ -23,3 +23,5 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
         run: mvn clean install
+      - name: Run tests
+        run: mvn test
