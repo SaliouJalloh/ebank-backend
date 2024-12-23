@@ -73,3 +73,5 @@ jobs:
   #     - name: Deploy to server
   #       run: |
   #         ssh -i ${{ secrets.SSH_PRIVATE_KEY }} user@server "docker pull my-dockerhub-user/my-spring-boot-app:latest && docker run -d -p 8080:8080 my-dockerhub-user/my-spring-boot-app:latest"
+
+  #         ssh -i ${{ secrets.SSH_PRIVATE_KEY }} user@server "docker pull my-dockerhub-user/my-spring-boot-app:latest && docker run -d -p 8080:8080 my-dockerhub-user/my-spring-boot-app:latest"
