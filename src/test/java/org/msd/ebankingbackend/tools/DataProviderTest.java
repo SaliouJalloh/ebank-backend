@@ -1,6 +1,9 @@
 package org.msd.ebankingbackend.tools;
 
+import org.msd.ebankingbackend.application.dto.AuthenticationResponseDto;
 import org.msd.ebankingbackend.domain.model.Customer;
+import org.msd.ebankingbackend.domain.service.payload.request.RegisterRequest;
+import org.msd.ebankingbackend.domain.service.payload.response.AuthenticationResponse;
 import org.msd.ebankingbackend.infrastructure.persistence.entity.CustomerEntity;
 import org.msd.ebankingbackend.infrastructure.persistence.entity.RoleEntity;
 import org.springframework.test.context.ActiveProfiles;
@@ -35,6 +38,29 @@ public class DataProviderTest {
         return RoleEntity.builder()
                 .name(ROLE_USER)
                 .description("User who utilizes transportation services provided by drivers")
+                .build();
+    }
+
+    public static RegisterRequest buildRegisterRequest() {
+        return RegisterRequest.builder()
+                .firstname("Yaadein")
+                .lastname("Guinée")
+                .email("john.doe@example.com")
+                .password("Password&123")
+                .build();
+    }
+
+    public static AuthenticationResponse buildAuthenticationResponse() {
+        return AuthenticationResponse.builder()
+                .accessToken("testAccessToken")
+//                .tokenType("Bearer")
+                .build();
+    }
+
+    public static AuthenticationResponseDto buildAuthenticationResponseDto() {
+        return AuthenticationResponseDto.builder()
+                .accessToken("testAccessToken")
+//                .tokenType("Bearer")
                 .build();
     }
 }

@@ -21,7 +21,7 @@ class CustomerRepositoryTestIT {
     private CustomerRepository customerRepository;
 
     @BeforeEach
-    void cleanData() {
+    void setUp() {
         customerRepository.deleteAll();
         customerRepository.flush();
     }

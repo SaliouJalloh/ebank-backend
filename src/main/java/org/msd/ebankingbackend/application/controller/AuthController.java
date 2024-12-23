@@ -32,7 +32,7 @@ public class AuthController implements IAuthController {
         // Ajoute le cookie à la réponse
         response.addHeader(HttpHeaders.SET_COOKIE, jwtCookie.toString());
 
-        // Converti et retourne le DTO
+        // Converti et retourn le DTO
         return controllerMapper.toAuthenticationDto(authResponse);
     }
 
