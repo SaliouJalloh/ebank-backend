@@ -1,36 +1,41 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/ebank
-    username: ${POSTGRES_USER:postgres}
-    password: ${POSTGRES_PASSWORD:test}
-    driver-class-name: org.postgresql.Driver
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: update
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.H2Dialect
+          format_sql: true
+    show-sql: true
+  datasource:
+    url: jdbc:h2:mem:test;INIT=create domain if not exists jsons as text;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    initialize: true
+  h2:
+    console: true
+    path: /h2-console
 
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 1000MB
-      max-request-size: 1000MB
-      file-size-threshold: 2048KB #2 Mo
-file:
-  upload-dir: ./uploads
-
+  # Hibernate Configuration for H2
+  sql:
+    init:
+      platform: h2
+      mode: always
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    
 server:
-  port: ${SERVER_PORT:8085}
-  error:
-    include-path: always
-    whitelabel:
-      enabled: false
+  port: 8085
 
 application:
-  backend:
-    basePath: http://localhost:8085
   frontend:
     basePath: http://localhost:4200
+  backend:
+    basePath: http://localhost:8085
   security:
     jwt:
       secret-key: 586B633834416E396D7436753879382F423F4428482B4C6250655367566B5970
@@ -47,4 +52,3 @@ cors:
                          Access-Control-Allow-Origin, Access-Control-Allow-Origin, Access-Control-Allow-Credentials"
   allow-credentials: true
   max-age: 3600
-

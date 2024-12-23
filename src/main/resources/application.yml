@@ -1,13 +1,39 @@
 spring:
-  main:
-    web-application-type: none
   profiles:
-    active: dev
+    active: @spring.profiles.active@
+  application:
+    name: api
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   servlet:
     multipart:
       max-file-size: 50MB
+cors:
+  allowed-origins: ${ORIGINS}
+  allowed-methods: ${METHODS}
+  allowed-headers: ${ALLOWED_HEADERS}
+  exposed-headers: ${EXPOSED_HEADERS}
+  allow-credentials: ${CREDENTIALS}
+  max-age: ${MAX_AGE}
+
 springdoc:
   default-produces-media-type: application/json
-server:
-  servlet:
-    context-path: /api/v1/
+
+application:
+  apiName: api
+  apiVersion: v1
+  frontend:
+    basePath: ${FRONTEND_URL}
+  backend:
+    basePath: ${BACKEND_URL}
+  security:
+    jwt:
+      secret-key: ${TOKEN_SECRET}
+      expiration: ${TOKEN_VALIDITY}
+      cookie-name: ${TOKEN_COOKIE}
+
+logging:
+  level:
+    root: INFO
