@@ -5,7 +5,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class AuthenticationServiceTestIntegrationTest {
+public class AuthenticationServiceTestIntegrationTest {
 
 
 }

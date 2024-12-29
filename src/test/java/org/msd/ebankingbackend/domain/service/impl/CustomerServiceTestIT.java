@@ -36,6 +36,7 @@ public class CustomerServiceTestIT {
 
     @BeforeEach
     void setUp() {
+        // Clear the database before each test
         customerRepository.deleteAll();
         customerRepository.flush();
     }

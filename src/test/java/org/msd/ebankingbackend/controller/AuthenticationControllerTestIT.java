@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.msd.ebankingbackend.EbankingBackendApplication;
-import org.msd.ebankingbackend.application.controller.AuthController;
 import org.msd.ebankingbackend.application.dto.AuthenticationResponseDto;
 import org.msd.ebankingbackend.application.mapper.IControllerMapper;
 import org.msd.ebankingbackend.domain.service.auth.AuthenticationService;
@@ -37,10 +35,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles("test")
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc // Enables MockMvc for testing the controller
 @SpringBootTest(classes = EbankingBackendApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureJsonTesters
-class AuthenticationControllerTestIT {
+public class AuthenticationControllerTestIT {
     public static final String baseUrl = "/api/v1/auth/";
     private final String REGISTER_PATH = baseUrl + "register";
     private final String AUTHENTICATE_PATH = baseUrl + "authenticate";
@@ -57,9 +55,6 @@ class AuthenticationControllerTestIT {
     @MockBean
     private IControllerMapper controllerMapper;
 
-    @InjectMocks
-    private AuthController authController;
-
     private ObjectMapper objectMapper;
 
     private RegisterRequest registerRequest;
@@ -74,20 +69,14 @@ class AuthenticationControllerTestIT {
         registerRequest = buildRegisterRequest();
         authenticationResponse = buildAuthenticationResponse();
         authenticationResponseDto = buildAuthenticationResponseDto();
-
-//        when(controllerMapper.toUser(any(UserDTO.class), any(UserStatus.class))).thenReturn(buildUser());
-
     }
 
     @Test
     void register_shouldReturnDtoAndSetJwtCookie() throws Exception {
         // Given
         ResponseCookie jwtCookie = ResponseCookie.from("jwt", "testAccessToken")
-                .httpOnly(true)
-                .secure(false)
-                .path("/")
-                .maxAge(3600)
-                .build();
+                .httpOnly(true).secure(false).path("/")
+                .maxAge(3600).build();
 
         when(authenticationService.register(any(RegisterRequest.class))).thenReturn(authenticationResponse);
         when(jwtService.generateJwtCookie(eq("testAccessToken"))).thenReturn(jwtCookie);
@@ -99,13 +88,13 @@ class AuthenticationControllerTestIT {
                         .content(objectMapper.writeValueAsString(registerRequest)))
                 .andExpect(status().isCreated())
                 .andDo(print())
-//                .andExpect(jsonPath("$.accessToken").value("testAccessToken"))
                 .andExpect(content().json(objectMapper.writeValueAsString(authenticationResponseDto)))
                 .andReturn();
 
         // Then
         HttpServletResponse servletResponse = result.getResponse();
         String cookieHeader = servletResponse.getHeader(HttpHeaders.SET_COOKIE);
+        assert cookieHeader != null;
         assertTrue(cookieHeader.contains("jwt=testAccessToken"));
     }
 

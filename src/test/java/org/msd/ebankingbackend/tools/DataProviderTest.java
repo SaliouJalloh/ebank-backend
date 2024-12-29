@@ -43,8 +43,8 @@ public class DataProviderTest {
 
     public static RegisterRequest buildRegisterRequest() {
         return RegisterRequest.builder()
-                .firstname("Yaadein")
-                .lastname("Guinée")
+                .firstname("Bala")
+                .lastname("Diallo")
                 .email("john.doe@example.com")
                 .password("Password&123")
                 .build();
@@ -53,14 +53,14 @@ public class DataProviderTest {
     public static AuthenticationResponse buildAuthenticationResponse() {
         return AuthenticationResponse.builder()
                 .accessToken("testAccessToken")
-//                .tokenType("Bearer")
+                .tokenType("Bearer")
                 .build();
     }
 
     public static AuthenticationResponseDto buildAuthenticationResponseDto() {
         return AuthenticationResponseDto.builder()
                 .accessToken("testAccessToken")
-//                .tokenType("Bearer")
+                .tokenType("Bearer")
                 .build();
     }
 }

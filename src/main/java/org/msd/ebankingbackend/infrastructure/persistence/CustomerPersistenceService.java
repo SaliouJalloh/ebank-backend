@@ -16,7 +16,6 @@ import java.util.List;
 
 import static org.msd.ebankingbackend.infrastructure.persistence.enumeration.RoleName.ROLE_USER;
 
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
