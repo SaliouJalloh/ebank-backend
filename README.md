@@ -34,24 +34,26 @@ Architecture de l'application :
 
 - src/main/java/com/example/project
 
-├── application
-│ ├── controller
-│ ├── handler # Handlers liés à l'API (par ex., exceptions REST)
-│ ├── mapper
-│ └── dto
-├── domain
-│ ├── model
-│ ├── service
-│ ├── handler # Handlers d'événements métier
-│ └── exception
-├── infrastructure
-│ ├── persistence
-│ ├── handler # Handlers techniques (systèmes externes)
-│ ├── security # Composants de sécurité
-│ ├── config
-│ └── mapper
-├── shared
-│ └── util
+```
+application
+├── controller
+├── handler # Handlers liés à l'API (par ex., exceptions REST)
+├── mapper
+├── dto
+domain
+├── model
+├── service
+├── handler # Handlers d'événements métier
+├── exception
+infrastructure
+├── persistence
+├── handler # Handlers techniques (systèmes externes)
+├── security # Composants de sécurité
+├── config
+├── mapper
+shared
+└── util
+```
 
 ## SOLID Principles dans chaque couche
 
