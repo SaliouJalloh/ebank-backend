@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc // Enables MockMvc for testing the controller
 @SpringBootTest(classes = EbankingBackendApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureJsonTesters
-public class AuthenticationControllerTestIT {
+public class AuthenticationControllerITTest {
     public static final String baseUrl = "/api/v1/auth/";
     private final String REGISTER_PATH = baseUrl + "register";
     private final String AUTHENTICATE_PATH = baseUrl + "authenticate";

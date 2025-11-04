@@ -3,10 +3,10 @@ package org.msd.ebankingbackend.infrastructure.persistence;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.msd.ebankingbackend.storage.mapper.ICustomerPersistenceMapper;
+import org.msd.ebankingbackend.storage.mapper.ICustomerPersistenceMapperImpl;
 import org.msd.ebankingbackend.storage.model.Customer;
 import org.msd.ebankingbackend.storage.persistence.CustomerPersistenceService;
-import org.msd.ebankingbackend.storage.mapper.ICustomerPersistenceMapper;
-import org.msd.ebankingbackend.infrastructure.persistence.mapper.ICustomerPersistenceMapperImpl;
 import org.msd.ebankingbackend.storage.repository.CustomerRepository;
 import org.msd.ebankingbackend.tools.DataProviderTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @ActiveProfiles("test")
 @Import({CustomerPersistenceService.class, ICustomerPersistenceMapperImpl.class})
-public class CustomerPersistenceServiceTestIT {
+public class CustomerPersistenceServiceITTest {
     private final ICustomerPersistenceMapper persistenceMapper = new ICustomerPersistenceMapperImpl();
 
     @Autowired

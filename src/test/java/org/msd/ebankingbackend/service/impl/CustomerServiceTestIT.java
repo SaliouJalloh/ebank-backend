@@ -4,9 +4,9 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.msd.ebankingbackend.infrastructure.persistence.mapper.ICustomerPersistenceMapperImpl;
 import org.msd.ebankingbackend.storage.entity.CustomerEntity;
 import org.msd.ebankingbackend.storage.mapper.ICustomerPersistenceMapper;
+import org.msd.ebankingbackend.storage.mapper.ICustomerPersistenceMapperImpl;
 import org.msd.ebankingbackend.storage.model.Customer;
 import org.msd.ebankingbackend.storage.persistence.CustomerPersistenceService;
 import org.msd.ebankingbackend.storage.persistence.ICustomerPersistenceService;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @ActiveProfiles("test")
 @Import({CustomerPersistenceService.class, ICustomerPersistenceMapperImpl.class})// Add the mapper manually
 @Transactional // Assure que chaque test est isolé et rollback après exécution
-public class CustomerServiceTestIT {
+class CustomerServiceTestIT {
 
     @Autowired
     private ICustomerPersistenceMapper persistenceMapper;

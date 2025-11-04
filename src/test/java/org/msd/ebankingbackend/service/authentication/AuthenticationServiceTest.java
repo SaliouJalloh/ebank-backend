@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import static org.mockito.MockitoAnnotations.openMocks;
 
-public class AuthenticationServiceTest {
+class AuthenticationServiceTest {
 
 
     @BeforeEach
