@@ -1,14 +1,14 @@
 package org.msd.ebankingbackend.tools;
 
-import org.msd.ebankingbackend.application.dto.AuthenticationResponseDto;
-import org.msd.ebankingbackend.domain.model.Customer;
-import org.msd.ebankingbackend.domain.service.payload.request.RegisterRequest;
-import org.msd.ebankingbackend.domain.service.payload.response.AuthenticationResponse;
-import org.msd.ebankingbackend.infrastructure.persistence.entity.CustomerEntity;
-import org.msd.ebankingbackend.infrastructure.persistence.entity.RoleEntity;
+import org.msd.ebankingbackend.controller.dto.AuthenticationResponseDto;
+import org.msd.ebankingbackend.storage.model.Customer;
+import org.msd.ebankingbackend.service.payload.request.RegisterRequest;
+import org.msd.ebankingbackend.service.payload.response.AuthenticationResponse;
+import org.msd.ebankingbackend.storage.entity.CustomerEntity;
+import org.msd.ebankingbackend.storage.entity.RoleEntity;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.msd.ebankingbackend.infrastructure.persistence.enumeration.RoleName.ROLE_USER;
+import static org.msd.ebankingbackend.storage.enumeration.RoleName.ROLE_USER;
 
 
 @ActiveProfiles("test")

@@ -2,8 +2,8 @@ package org.msd.ebankingbackend.infrastructure.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.msd.ebankingbackend.infrastructure.persistence.entity.CustomerEntity;
-import org.msd.ebankingbackend.infrastructure.persistence.repository.CustomerRepository;
+import org.msd.ebankingbackend.storage.entity.CustomerEntity;
+import org.msd.ebankingbackend.storage.repository.CustomerRepository;
 import org.msd.ebankingbackend.tools.DataProviderTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
