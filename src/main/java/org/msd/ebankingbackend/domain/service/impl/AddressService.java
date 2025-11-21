@@ -2,11 +2,10 @@ package org.msd.ebankingbackend.domain.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.msd.ebankingbackend.domain.model.Address;
 import org.msd.ebankingbackend.domain.service.IAddressService;
 import org.msd.ebankingbackend.domain.service.validator.EntityValidatorService;
-import org.msd.ebankingbackend.infrastructure.persistence.IAddressPersistenceService;
+import org.msd.ebankingbackend.infrastructure.persistence.service.IAddressPersistenceService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

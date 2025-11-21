@@ -1,6 +1,6 @@
 package org.msd.ebankingbackend.infrastructure.persistence.repository;
 
-import org.msd.ebankingbackend.infrastructure.persistence.entity.AddressEntity;
+import org.msd.ebankingbackend.infrastructure.entity.AddressEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

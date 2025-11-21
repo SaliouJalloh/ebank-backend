@@ -6,17 +6,22 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.msd.ebankingbackend.EbankingBackendApplication;
-import org.msd.ebankingbackend.api.dto.AuthenticationResponseDto;
-import org.msd.ebankingbackend.api.mapper.IControllerMapper;
+import org.msd.ebankingbackend.application.dto.response.AuthenticationResponseDto;
+import org.msd.ebankingbackend.application.mapper.IControllerMapper;
+import org.msd.ebankingbackend.config.TestMapperConfiguration;
 import org.msd.ebankingbackend.domain.service.auth.AuthenticationService;
 import org.msd.ebankingbackend.domain.service.jwt.JwtService;
+import org.msd.ebankingbackend.application.dto.request.RegisterRequestDto;
 import org.msd.ebankingbackend.domain.service.payload.request.RegisterRequest;
+import static org.msd.ebankingbackend.tools.DataProviderTest.buildRegisterRequestDto;
+import static org.msd.ebankingbackend.tools.DataProviderTest.buildRegisterRequest;
 import org.msd.ebankingbackend.domain.service.payload.response.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.test.context.ActiveProfiles;
@@ -33,9 +38,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import org.msd.ebankingbackend.config.TestMapperConfiguration;
-import org.springframework.context.annotation.Import;
 
 @ActiveProfiles("test")
 @AutoConfigureMockMvc // Enables MockMvc for testing the controller
@@ -61,7 +63,7 @@ public class AuthenticationControllerITTest {
 
     private ObjectMapper objectMapper;
 
-    private RegisterRequest registerRequest;
+    private RegisterRequestDto registerRequestDto;
     private AuthenticationResponseDto authenticationResponseDto;
     private AuthenticationResponse authenticationResponse;
 
@@ -70,7 +72,7 @@ public class AuthenticationControllerITTest {
     public void setUp() {
         objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-        registerRequest = buildRegisterRequest();
+        registerRequestDto = buildRegisterRequestDto();
         authenticationResponse = buildAuthenticationResponse();
         authenticationResponseDto = buildAuthenticationResponseDto();
     }
@@ -82,6 +84,7 @@ public class AuthenticationControllerITTest {
                 .httpOnly(true).secure(false).path("/")
                 .maxAge(3600).build();
 
+        when(controllerMapper.toRegisterRequest(any(RegisterRequestDto.class))).thenReturn(buildRegisterRequest());
         when(authenticationService.register(any(RegisterRequest.class))).thenReturn(authenticationResponse);
         when(jwtService.generateJwtCookie(eq("testAccessToken"))).thenReturn(jwtCookie);
         when(controllerMapper.toAuthenticationDto(any(AuthenticationResponse.class))).thenReturn(authenticationResponseDto);
@@ -89,7 +92,7 @@ public class AuthenticationControllerITTest {
         // when
         MvcResult result = mockMvc.perform(post(REGISTER_PATH)
                         .contentType(APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(registerRequest)))
+                        .content(objectMapper.writeValueAsString(registerRequestDto)))
                 .andExpect(status().isCreated())
                 .andDo(print())
                 .andExpect(content().json(objectMapper.writeValueAsString(authenticationResponseDto)))

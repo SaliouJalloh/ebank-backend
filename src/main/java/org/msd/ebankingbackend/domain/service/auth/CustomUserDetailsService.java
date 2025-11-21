@@ -1,9 +1,8 @@
 package org.msd.ebankingbackend.domain.service.auth;
 
 import lombok.RequiredArgsConstructor;
-
 import org.msd.ebankingbackend.domain.model.Customer;
-import org.msd.ebankingbackend.infrastructure.persistence.ICustomerPersistenceService;
+import org.msd.ebankingbackend.infrastructure.persistence.service.ICustomerPersistenceService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

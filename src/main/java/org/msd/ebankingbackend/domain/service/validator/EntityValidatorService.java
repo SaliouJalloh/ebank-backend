@@ -4,7 +4,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
-import org.msd.ebankingbackend.exception.EntityValidationException;
+import org.msd.ebankingbackend.domain.exception.EntityValidationException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 

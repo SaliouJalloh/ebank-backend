@@ -1,7 +1,7 @@
 package org.msd.ebankingbackend.infrastructure.persistence.repository;
 
+import org.msd.ebankingbackend.infrastructure.entity.TransactionEntity;
 import org.msd.ebankingbackend.infrastructure.enumeration.TransactionType;
-import org.msd.ebankingbackend.infrastructure.persistence.entity.TransactionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

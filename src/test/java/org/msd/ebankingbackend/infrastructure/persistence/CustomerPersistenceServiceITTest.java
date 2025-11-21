@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.msd.ebankingbackend.config.TestMapperConfiguration;
 import org.msd.ebankingbackend.domain.model.Customer;
 import org.msd.ebankingbackend.infrastructure.persistence.repository.CustomerRepository;
+import org.msd.ebankingbackend.infrastructure.persistence.service.CustomerPersistenceService;
 import org.msd.ebankingbackend.tools.DataProviderTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

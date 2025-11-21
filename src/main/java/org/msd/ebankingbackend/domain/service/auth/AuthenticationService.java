@@ -4,15 +4,14 @@ package org.msd.ebankingbackend.domain.service.auth;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
+import org.msd.ebankingbackend.domain.exception.UsernameAlreadyExistsException;
 import org.msd.ebankingbackend.domain.model.Customer;
 import org.msd.ebankingbackend.domain.service.jwt.IJwtService;
 import org.msd.ebankingbackend.domain.service.payload.request.AuthenticationRequest;
 import org.msd.ebankingbackend.domain.service.payload.request.RegisterRequest;
 import org.msd.ebankingbackend.domain.service.payload.response.AuthenticationResponse;
 import org.msd.ebankingbackend.domain.service.validator.EntityValidatorService;
-import org.msd.ebankingbackend.exception.UsernameAlreadyExistsException;
-import org.msd.ebankingbackend.infrastructure.persistence.ICustomerPersistenceService;
+import org.msd.ebankingbackend.infrastructure.persistence.service.ICustomerPersistenceService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

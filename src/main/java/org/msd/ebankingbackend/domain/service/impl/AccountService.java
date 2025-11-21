@@ -2,14 +2,13 @@ package org.msd.ebankingbackend.domain.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.msd.ebankingbackend.domain.model.*;
 import org.msd.ebankingbackend.domain.service.IAccountService;
 import org.msd.ebankingbackend.domain.service.validator.EntityValidatorService;
-import org.msd.ebankingbackend.infrastructure.mapper.IOperationPersistenceMapper;
-import org.msd.ebankingbackend.infrastructure.persistence.IAccountPersistenceService;
-import org.msd.ebankingbackend.infrastructure.persistence.ICustomerPersistenceService;
-import org.msd.ebankingbackend.infrastructure.persistence.IOperationPersistenceService;
+import org.msd.ebankingbackend.infrastructure.persistence.mapper.IOperationPersistenceMapper;
+import org.msd.ebankingbackend.infrastructure.persistence.service.IAccountPersistenceService;
+import org.msd.ebankingbackend.infrastructure.persistence.service.ICustomerPersistenceService;
+import org.msd.ebankingbackend.infrastructure.persistence.service.IOperationPersistenceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
