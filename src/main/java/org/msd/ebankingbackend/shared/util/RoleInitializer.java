@@ -1,15 +1,16 @@
 package org.msd.ebankingbackend.shared.util;
 
-import org.msd.ebankingbackend.storage.entity.RoleEntity;
-import org.msd.ebankingbackend.storage.enumeration.RoleName;
-import org.msd.ebankingbackend.storage.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import static org.msd.ebankingbackend.storage.enumeration.RoleName.ROLE_ADMIN;
-import static org.msd.ebankingbackend.storage.enumeration.RoleName.ROLE_USER;
+import static org.msd.ebankingbackend.infrastructure.enumeration.RoleName.ROLE_ADMIN;
+import static org.msd.ebankingbackend.infrastructure.enumeration.RoleName.ROLE_USER;
+
+import org.msd.ebankingbackend.infrastructure.enumeration.RoleName;
+import org.msd.ebankingbackend.infrastructure.persistence.entity.RoleEntity;
+import org.msd.ebankingbackend.infrastructure.persistence.repository.RoleRepository;
 
 @Component
 @Profile("dev")  // Ne s'exécutera qu'en mode développement

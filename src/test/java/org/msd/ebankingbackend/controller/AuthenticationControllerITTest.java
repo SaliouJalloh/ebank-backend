@@ -6,12 +6,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.msd.ebankingbackend.EbankingBackendApplication;
-import org.msd.ebankingbackend.controller.dto.AuthenticationResponseDto;
-import org.msd.ebankingbackend.controller.mapper.IControllerMapper;
-import org.msd.ebankingbackend.service.auth.AuthenticationService;
-import org.msd.ebankingbackend.service.jwt.JwtService;
-import org.msd.ebankingbackend.service.payload.request.RegisterRequest;
-import org.msd.ebankingbackend.service.payload.response.AuthenticationResponse;
+import org.msd.ebankingbackend.api.dto.AuthenticationResponseDto;
+import org.msd.ebankingbackend.api.mapper.IControllerMapper;
+import org.msd.ebankingbackend.domain.service.auth.AuthenticationService;
+import org.msd.ebankingbackend.domain.service.jwt.JwtService;
+import org.msd.ebankingbackend.domain.service.payload.request.RegisterRequest;
+import org.msd.ebankingbackend.domain.service.payload.response.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -34,10 +34,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.msd.ebankingbackend.config.TestMapperConfiguration;
+import org.springframework.context.annotation.Import;
+
 @ActiveProfiles("test")
 @AutoConfigureMockMvc // Enables MockMvc for testing the controller
 @SpringBootTest(classes = EbankingBackendApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureJsonTesters
+@Import(TestMapperConfiguration.class)
 public class AuthenticationControllerITTest {
     public static final String baseUrl = "/api/v1/auth/";
     private final String REGISTER_PATH = baseUrl + "register";

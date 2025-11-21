@@ -23,8 +23,10 @@ services:
   # Spring Boot Application
   application:
     container_name: app_container
-    image: ebanking:v1
-    build: .. # Dockerfile
+    image: ebanking-backend:local
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
     depends_on:
       - postgres
     networks:

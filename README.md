@@ -4,11 +4,12 @@ EBanking Api
 
 Architecture de l'application :
 
-    1. Controller Layer (API)
+      1. Controller Layer (API)
 
 - Responsable de la réception des requêtes et de la préparation des réponses.
-
-- Communique exclusivement avec le Service Layer via des DTOs.
+- **STRICT :** Ne manipule JAMAIS les modèles du domaine directement.
+- Utilise exclusivement des **DTOs** (Data Transfer Objects) pour les entrées (`RequestDto`) et les sorties (`ResponseDto`).
+- Communique avec le Service Layer via des interfaces et mappe les DTOs vers les modèles.
 
       2. Service Layer (Business Logic)
 
