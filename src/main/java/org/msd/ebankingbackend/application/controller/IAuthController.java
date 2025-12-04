@@ -9,8 +9,6 @@ import jakarta.validation.Valid;
 import org.msd.ebankingbackend.application.dto.request.AuthenticationRequestDto;
 import org.msd.ebankingbackend.application.dto.request.RegisterRequestDto;
 import org.msd.ebankingbackend.application.dto.response.AuthenticationResponseDto;
-import org.msd.ebankingbackend.domain.service.payload.request.AuthenticationRequest;
-import org.msd.ebankingbackend.domain.service.payload.request.RegisterRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

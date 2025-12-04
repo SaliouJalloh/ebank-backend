@@ -9,6 +9,8 @@ import org.msd.ebankingbackend.infrastructure.persistence.mapper.IOperationPersi
 import org.msd.ebankingbackend.infrastructure.persistence.service.IAccountPersistenceService;
 import org.msd.ebankingbackend.infrastructure.persistence.service.ICustomerPersistenceService;
 import org.msd.ebankingbackend.infrastructure.persistence.service.IOperationPersistenceService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -31,6 +33,7 @@ public class AccountService implements IAccountService {
     private final IOperationPersistenceMapper operationPersistenceMapper;
 
     @Override
+    @CacheEvict(value = "accounts", allEntries = true)
     public Account saveAccount(Account account) {
         log.info("Account saved: {}", account);
         validator.validateInput(account);
@@ -46,6 +49,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
+    @Cacheable(value = "accounts", key = "#accountId")
     public Account findAccountById(Long accountId) {
         return accountPersistenceService.findAccountById(accountId);
     }
@@ -136,6 +140,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
+    @CacheEvict(value = "accounts", allEntries = true)
     public void deleteAccount(Long accountId) {
         accountPersistenceService.deleteAccount(accountId);
     }

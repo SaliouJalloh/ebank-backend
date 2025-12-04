@@ -12,6 +12,7 @@ import org.msd.ebankingbackend.domain.service.payload.request.RegisterRequest;
 import org.msd.ebankingbackend.domain.service.payload.response.AuthenticationResponse;
 import org.msd.ebankingbackend.domain.service.validator.EntityValidatorService;
 import org.msd.ebankingbackend.infrastructure.persistence.service.ICustomerPersistenceService;
+import org.msd.ebankingbackend.infrastructure.security.SecurityUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,7 +42,8 @@ public class AuthenticationService implements IAuthenticationService {
         }
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         Customer customer = customerPersistenceService.saveCustomerWithRole(request);
-        String token = jwtService.generateToken(customer);
+        SecurityUser securityUser = new SecurityUser(customer);
+        String token = jwtService.generateToken(securityUser);
         return AuthenticationResponse.builder().accessToken(token).tokenType(BEARER).build();
     }
 
@@ -55,9 +57,10 @@ public class AuthenticationService implements IAuthenticationService {
                         request.getPassword()
                 )
         );
-        Customer customer = (Customer) authentication.getPrincipal();
+        SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
+        Customer customer = securityUser.getCustomer();
         customer.setActive(true);
-        String token = jwtService.generateToken(customer);
+        String token = jwtService.generateToken(securityUser);
         return AuthenticationResponse.builder().accessToken(token).tokenType(BEARER).build();
     }
 }

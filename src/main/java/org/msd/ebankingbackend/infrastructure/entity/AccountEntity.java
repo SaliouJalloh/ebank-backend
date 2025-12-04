@@ -33,6 +33,6 @@ public class AccountEntity extends AbstractEntity {
     @ManyToOne
     private CustomerEntity customer;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private List<OperationEntity> operation;
 }

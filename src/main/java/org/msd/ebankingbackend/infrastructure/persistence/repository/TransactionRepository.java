@@ -37,4 +37,15 @@ public interface TransactionRepository extends JpaRepository<TransactionEntity, 
     @Query("SELECT SUM(CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) " +
             "FROM TransactionEntity t WHERE t.customer.id = :customerId")
     Double calculateBalance(@Param("customerId") Long customerId);
+
+    /**
+     * Projection JPA optimisée pour les listes de transactions.
+     */
+    @Query("""
+        SELECT new org.msd.ebankingbackend.application.dto.projection.TransactionListProjection(
+            t.id, t.amount, t.type, t.dateTime, t.destinationIban, t.customer.id
+        )
+        FROM TransactionEntity t
+        """)
+    List<org.msd.ebankingbackend.application.dto.projection.TransactionListProjection> findAllProjected();
 }

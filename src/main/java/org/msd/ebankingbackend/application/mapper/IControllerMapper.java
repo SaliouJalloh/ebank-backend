@@ -26,14 +26,14 @@ public interface IControllerMapper {
 
     // Mappings for Request DTOs - Customer
     @org.mapstruct.Mapping(target = "id", ignore = true)
-    @org.mapstruct.Mapping(target = "password", source = "password")
+//    @org.mapstruct.Mapping(target = "password", source = "password")
     @org.mapstruct.Mapping(target = "createdAt", ignore = true)
     @org.mapstruct.Mapping(target = "updatedAt", ignore = true)
     @org.mapstruct.Mapping(target = "active", constant = "true")
     Customer toCustomer(CustomerRequestDto dto);
 
     @org.mapstruct.Mapping(target = "id", ignore = true)
-    @org.mapstruct.Mapping(target = "password", ignore = true)
+//    @org.mapstruct.Mapping(target = "password", ignore = true)
     @org.mapstruct.Mapping(target = "createdAt", ignore = true)
     @org.mapstruct.Mapping(target = "updatedAt", ignore = true)
     @org.mapstruct.Mapping(target = "active", ignore = true)

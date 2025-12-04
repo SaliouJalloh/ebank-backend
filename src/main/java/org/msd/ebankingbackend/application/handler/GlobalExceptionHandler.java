@@ -3,6 +3,9 @@ package org.msd.ebankingbackend.application.handler;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+
+import org.msd.ebankingbackend.domain.exception.CustomerAlreadyExistsException;
+import org.msd.ebankingbackend.domain.exception.CustomerNotFoundException;
 import org.msd.ebankingbackend.domain.exception.EntityValidationException;
 import org.msd.ebankingbackend.domain.exception.OperationNonPermittedException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -85,6 +88,28 @@ public class GlobalExceptionHandler {
         log.error(exception.getMessage(), exception);
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
+                .body(representation);
+    }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<ExceptionRepresentation> handleException(CustomerNotFoundException exception) {
+        ExceptionRepresentation representation = ExceptionRepresentation.builder()
+                .errorMessage(exception.getMessage())
+                .build();
+        log.error(exception.getMessage(), exception);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(representation);
+    }
+
+    @ExceptionHandler(CustomerAlreadyExistsException.class)
+    public ResponseEntity<ExceptionRepresentation> handleException(CustomerAlreadyExistsException exception) {
+        ExceptionRepresentation representation = ExceptionRepresentation.builder()
+                .errorMessage(exception.getMessage())
+                .build();
+        log.error(exception.getMessage(), exception);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(representation);
     }
 

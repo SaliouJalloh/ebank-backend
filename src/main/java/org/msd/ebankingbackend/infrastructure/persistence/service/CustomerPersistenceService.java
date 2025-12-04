@@ -3,6 +3,8 @@ package org.msd.ebankingbackend.infrastructure.persistence.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.msd.ebankingbackend.application.dto.projection.CustomerListProjection;
 import org.msd.ebankingbackend.domain.model.Customer;
 import org.msd.ebankingbackend.domain.service.payload.request.RegisterRequest;
 import org.msd.ebankingbackend.infrastructure.entity.CustomerEntity;
@@ -80,6 +82,14 @@ public class CustomerPersistenceService implements ICustomerPersistenceService {
     public List<Customer> findAllCustomers() {
         List<CustomerEntity> customers = customerRepository.findAll();
         return customers.stream().map(customerPersistenceMapper::toModel).toList();
+    }
+
+    /**
+     * VERSION OPTIMISÉE: Projection JPA directe → 0 mapping !
+     * Utilisée pour les listes où on ne veut pas charger toutes les relations.
+     */
+    public List<CustomerListProjection> findAllCustomersProjected() {
+        return customerRepository.findAllProjected();
     }
 
     @Override
